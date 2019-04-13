@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ParkingLotTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-04-13T08:49:31" hostname="CNsiping.liu" time="0.009">
+  <properties/>
+  <testcase name="should_not_return_car_when_pick_car_given_wrong_ticket" classname="ParkingLotTest" time="0.004"/>
+  <testcase name="should_return_correct_car_when_pick_car_given_correct_ticket" classname="ParkingLotTest" time="0.001"/>
+  <testcase name="should_not_issue_ticket_when_parking_given_car_with_duplicate_car_no" classname="ParkingLotTest" time="0.001"/>
+  <testcase name="should_not_issue_ticket_when_parking_given_car_with_no_car_no" classname="ParkingLotTest" time="0.001"/>
+  <testcase name="should_not_return_car_when_pick_car_given_used_ticket" classname="ParkingLotTest" time="0.0"/>
+  <testcase name="should_not_issue_ticket_when_parking_given_parking_lot_full" classname="ParkingLotTest" time="0.0"/>
+  <testcase name="should_not_return_correct_car_when_pick_car_given_another_car_ticket" classname="ParkingLotTest" time="0.0"/>
+  <testcase name="should_issue_correct_ticket_when_parking_given_parking_lot_available" classname="ParkingLotTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
