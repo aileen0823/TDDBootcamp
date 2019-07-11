@@ -21,7 +21,7 @@ public class ParkingLot {
     }
 
     public Ticket park(Car car) {
-        if(parkedCar.size() == capacity){
+        if(!isAvailable()){
             throw new ParkingLotFullException();
         }
         if(car == null || car.getCarNo().isEmpty()){
@@ -47,5 +47,9 @@ public class ParkingLot {
             throw new TicketNotMatchException();
         }
         return car;
+    }
+
+    public boolean isAvailable(){
+        return parkedCar.size() < capacity;
     }
 }

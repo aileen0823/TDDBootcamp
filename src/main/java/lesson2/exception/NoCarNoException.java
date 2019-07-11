@@ -1,4 +1,4 @@
 package lesson2.exception;
 
-public class NoCarNoException extends RuntimeException{
+public class NoCarNoException extends RuntimeException {
 }

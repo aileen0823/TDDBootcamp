@@ -1,4 +1,5 @@
 import lesson2.Car;
+import lesson2.ParkingBoy;
 import lesson2.ParkingLot;
 import lesson2.Ticket;
 import lesson2.exception.DuplicateCarNoException;
@@ -7,6 +8,9 @@ import lesson2.exception.NoCarNoException;
 import lesson2.exception.TicketNotMatchException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -93,4 +97,82 @@ public class ParkingLotTest {
             parkingLot.pick(ticket);
         });
     }
+
+
+    @Test
+    public void should_car_parking_in_first_parking_lot_when_park_car_given_two_ordered_parking_lot_and_first_parking_lot_is_available() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+        Assert.assertNotNull(firstParkingLot.pick(ticket));
+    }
+
+    @Test
+    public void should_car_parking_in_second_parking_lot_when_park_car_given_three_ordered_parking_lot_and_first_parking_lot_is_not_available() {
+        ParkingLot firstParkingLot = new ParkingLot(0);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        ParkingLot thirdParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+        parkingLots.add(thirdParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+        Assert.assertNotNull(secondParkingLot.pick(ticket));
+    }
+
+    @Test
+    public void should_car_parking_in_second_parking_lot_when_park_car_given_two_ordered_parking_lot_and_first_parking_lot_is_full() {
+        ParkingLot firstParkingLot = new ParkingLot(0);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+
+        Assert.assertNotNull(secondParkingLot.pick(ticket));
+    }
+
+    @Test
+    public void should_return_car_when_pick_car_given_car_was_parked_in_first_parking_lot() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+        Assert.assertEquals(firstParkingLot.pick(ticket), car);
+    }
+
+    @Test
+    public void should_return_car_when_pick_car_given_car_was_parked_in_second_parking_lot() {
+        ParkingLot firstParkingLot = new ParkingLot(0);
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+
+        Assert.assertEquals(secondParkingLot.pick(ticket), car);
+    }
+
+
+
 }
