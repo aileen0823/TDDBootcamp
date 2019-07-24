@@ -6,6 +6,8 @@ import lesson2.exception.DuplicateCarNoException;
 import lesson2.exception.ParkingLotFullException;
 import lesson2.exception.NoCarNoException;
 import lesson2.exception.TicketNotMatchException;
+import lesson2.strategy.HighestVacancyRateParkingStrategy;
+import lesson2.strategy.MaximumEmptyParkingStrategy;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -171,6 +173,36 @@ public class ParkingLotTest {
         Ticket ticket = parkingBoy.park(car);
 
         Assert.assertEquals(secondParkingLot.pick(ticket), car);
+    }
+
+
+    @Test
+    public void should_car_parking_in_most_empty_parking_lot_when_park_car_given_two_parking_lot_and_second_parking_lot_is_most_empty() {
+        ParkingLot firstParkingLot = new ParkingLot(1);
+        ParkingLot secondParkingLot = new ParkingLot(2);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots, new MaximumEmptyParkingStrategy());
+        Car car = new Car("A12345");
+        Ticket ticket = parkingBoy.park(car);
+        Assert.assertNotNull(secondParkingLot.pick(ticket));
+    }
+
+
+    @Test
+    public void should_car_parking_in_most_empty_parking_lot_when_park_car_given_two_parking_lot_and_second_parking_lot_is_highest_vacancy_rate() {
+        ParkingLot firstParkingLot = new ParkingLot(4);
+        ParkingLot secondParkingLot = new ParkingLot(2);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots, new HighestVacancyRateParkingStrategy());
+        parkingBoy.park(new Car("A12345"));
+        Ticket ticket = parkingBoy.park(new Car("A22345"));
+        Assert.assertNotNull(secondParkingLot.pick(ticket));
     }
 
 

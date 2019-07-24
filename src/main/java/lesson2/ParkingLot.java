@@ -1,8 +1,8 @@
 package lesson2;
 
 import lesson2.exception.DuplicateCarNoException;
-import lesson2.exception.ParkingLotFullException;
 import lesson2.exception.NoCarNoException;
+import lesson2.exception.ParkingLotFullException;
 import lesson2.exception.TicketNotMatchException;
 
 import java.util.HashMap;
@@ -21,13 +21,13 @@ public class ParkingLot {
     }
 
     public Ticket park(Car car) {
-        if(!isAvailable()){
+        if (!isAvailable()) {
             throw new ParkingLotFullException();
         }
-        if(car == null || car.getCarNo().isEmpty()){
+        if (car == null || car.getCarNo().isEmpty()) {
             throw new NoCarNoException();
         }
-        if(isCarNoDuplicate(car.getCarNo())){
+        if (isCarNoDuplicate(car.getCarNo())) {
             throw new DuplicateCarNoException();
         }
         Ticket ticket = new Ticket();
@@ -35,7 +35,7 @@ public class ParkingLot {
         return ticket;
     }
 
-    private boolean isCarNoDuplicate(String carNo){
+    private boolean isCarNoDuplicate(String carNo) {
         return parkedCar.values()
                 .stream()
                 .anyMatch(car -> car.getCarNo().equals(carNo));
@@ -43,13 +43,21 @@ public class ParkingLot {
 
     public Car pick(Ticket ticket) {
         Car car = parkedCar.remove(ticket);
-        if(car == null){
+        if (car == null) {
             throw new TicketNotMatchException();
         }
         return car;
     }
 
-    public boolean isAvailable(){
+    public boolean isAvailable() {
         return parkedCar.size() < capacity;
+    }
+
+    public int getAvailableCount() {
+        return capacity - parkedCar.size();
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }
